@@ -12,7 +12,7 @@ const randomFoodCoordinates = () => {
 
 const initialState = {
   food: randomFoodCoordinates(),
-  speed: 400,
+  speed: 200,
   direction: 'RIGHT',
   snakeDots: [
     [0,0],
@@ -32,6 +32,7 @@ componentDidMount() {
 componentDidUpdate() {
   this.outOfBounds();
   this.snakeCollapsed();
+  this.snakeEats();
 }
 
 onKeyDown = (e) => {
@@ -96,6 +97,34 @@ snakeCollapsed() {
       this.onGameOver();
     }
   })
+}
+
+snakeEats() {
+  let head = this.state.snakeDots[this.state.snakeDots.length - 1];
+  let food = this.state.food;
+  if (head[0] == food[0] && head[1] == food[1]) {
+    this.setState({
+      food: randomFoodCoordinates()
+    })
+    this.enlargeSnake();
+    this.speedUp();
+  }
+}
+
+enlargeSnake() {
+  let newSnake = [...this.state.snakeDots]
+  newSnake.unshift([])
+  this.setState({
+    snakeDots: newSnake
+  })
+}
+
+speedUp() {
+  if (this.state.speed > 10) {
+    this.setState({
+      speed: this.state.speed - 10
+    })
+  }
 }
 
 onGameOver() {
