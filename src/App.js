@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Snake from './Snake';
 import Food from './Food';
 
+
+
 const randomFoodCoordinates = () => {
   let min = 1;
   let max = 98;
@@ -12,7 +14,7 @@ const randomFoodCoordinates = () => {
 
 const initialState = {
   food: randomFoodCoordinates(),
-  speed: 200,
+  speed: 300,
   direction: 'RIGHT',
   snakeDots: [
     [0,0],
